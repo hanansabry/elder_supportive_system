@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Patient Tracking System</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="medicines">Medicines</string>
+    <string name="add_medicine">Add Medicine</string>
+    <string name="add_disease">Add Disease</string>
+    <string name="diseases">Diseases</string>
+    <string name="login_as_admin">Login As Admin</string>
+</resources>
