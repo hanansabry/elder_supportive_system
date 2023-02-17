@@ -11,4 +11,22 @@
     <string name="add_disease">Add Disease</string>
     <string name="diseases">Diseases</string>
     <string name="login_as_admin">Login As Admin</string>
+    <string name="admin">Admin</string>
+    <string name="conflicts">Conflicts</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_new_medicine">Add New Medicine</string>
+    <string name="medicine_name">Medicine name</string>
+    <string name="medicine_description">Medicine description</string>
+    <string name="medicine_list">Medicine List</string>
+    <string name="disease_list">Disease List</string>
+    <string name="add_new_disease">Add New Disease</string>
+    <string name="disease_name">Disease name</string>
+    <string name="disease_description">Disease description</string>
+    <string name="medicine_conflicts">Medicine Conflicts</string>
+    <string name="disease_conflicts">Disease Conflicts</string>
+    <string name="save">Save</string>
+    <string name="conflict_name">Conflict Name</string>
+    <string name="conflict_description">Conflict description</string>
+    <string name="add_new_conflict">Add New Conflict</string>
 </resources>

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.android.patienttrackingsystem.R;
+import com.android.patienttrackingsystem.presentation.admin.AdminActivity;
 
 public class SignInActivity extends AppCompatActivity {
 

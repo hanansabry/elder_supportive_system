@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.AdminActivity">
+    tools:context=".presentation.admin.AdminActivity">
 
     <ImageButton
         android:id="@+id/back_button"
@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Admin"
+        android:text="@string/admin"
         android:textColor="@color/colorAccent"
         app:layout_constraintStart_toEndOf="@id/back_button"
         app:layout_constraintTop_toTopOf="@id/back_button"

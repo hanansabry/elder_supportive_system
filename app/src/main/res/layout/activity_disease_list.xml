@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.admin.diseases.DiseaseListActivity">
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:background="@null"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/disease_list"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toEndOf="@id/back_button"
+        app:layout_constraintTop_toTopOf="@id/back_button"
+        app:layout_constraintBottom_toBottomOf="@id/back_button"/>
+
+    <ImageView
+        android:id="@+id/profile"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/medicine_list_icon"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@id/back_button"
+        app:layout_constraintTop_toTopOf="@id/title1"/>
+
+    <TextView
+        android:id="@+id/title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32sp"
+        android:text="Disease"
+        android:textColor="@color/colorPrimary"
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@id/back_button" />
+
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List"
+        android:textColor="@color/colorAccent"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="@id/title1"
+        app:layout_constraintTop_toBottomOf="@id/title1" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/medicine_list_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title2"
+        tools:listitem="@layout/disease_item_layout" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_disease_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:contentDescription="@string/add_disease"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
