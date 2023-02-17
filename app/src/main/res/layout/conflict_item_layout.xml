@@ -14,7 +14,7 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/medicine_conflict_name"
+            android:id="@+id/conflict_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -23,12 +23,12 @@
             tools:text="Conflict Name" />
 
         <TextView
-            android:id="@+id/medicine_conflict_desc"
+            android:id="@+id/conflict_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textColor="@color/dark_gray"
-            app:layout_constraintTop_toBottomOf="@id/medicine_conflict_name"
+            app:layout_constraintTop_toBottomOf="@id/conflict_name"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"/>
 

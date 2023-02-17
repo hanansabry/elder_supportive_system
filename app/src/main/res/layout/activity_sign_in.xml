@@ -41,7 +41,8 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:inputType="textEmailAddress"/>
 
         <EditText
             android:id="@+id/password_edit_text"
@@ -54,7 +55,8 @@
             android:hint="@string/password"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:inputType="textPassword"/>
 
         <Button
             android:id="@+id/sign_in"

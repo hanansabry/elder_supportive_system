@@ -29,4 +29,6 @@
     <string name="conflict_name">Conflict Name</string>
     <string name="conflict_description">Conflict description</string>
     <string name="add_new_conflict">Add New Conflict</string>
+    <string name="email_password_required">You must enter email and password</string>
+    <string name="sign_in_general_error_msg">Wrong ُemail or password. Please try again</string>
 </resources>
