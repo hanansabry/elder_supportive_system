@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:padding="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/conflict_item_layout"/>
 

@@ -34,4 +34,11 @@ public class SharedPreferencesDataSource {
     public boolean isAdmin() {
         return sharedPreferences.getBoolean(Constants.IS_ADMIN, false);
     }
+
+    public void removeAllValues() {
+        for (String key : sharedPreferences.getAll().keySet()) {
+            editor.remove(key);
+            editor.apply();
+        }
+    }
 }

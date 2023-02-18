@@ -1,6 +1,7 @@
 package com.android.patienttrackingsystem.datasource;
 
 import com.android.patienttrackingsystem.data.models.Conflict;
+import com.android.patienttrackingsystem.data.models.Disease;
 import com.android.patienttrackingsystem.data.models.Medicine;
 import com.android.patienttrackingsystem.data.models.User;
 import com.android.patienttrackingsystem.di.Constants;
@@ -143,6 +144,60 @@ public class FirebaseDataSource {
                         medicineList.add(medicine);
                     }
                     emitter.onNext(medicineList);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    emitter.onError(error.toException());
+                }
+            });
+        }, BackpressureStrategy.BUFFER);
+    }
+
+    public Single<Boolean> addNewDisease(Disease disease) {
+        return Single.create(emitter -> {
+            DatabaseReference diseasesRef = firebaseDatabase.getReference(Constants.DISEASES_NODE);
+            diseasesRef.push().setValue(disease)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            emitter.onSuccess(true);
+                        } else {
+                            emitter.onSuccess(false);
+                        }
+                    });
+        });
+    }
+
+    public Single<Boolean> addDiseaseConflict(Conflict conflict, String diseaseId) {
+        return Single.create(emitter -> {
+            firebaseDatabase.getReference(Constants.DISEASES_NODE)
+                    .child(diseaseId)
+                    .child(Constants.CONFLICTS)
+                    .push()
+                    .setValue(conflict)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            emitter.onSuccess(true);
+                        } else {
+                            emitter.onSuccess(false);
+                        }
+                    });
+        });
+    }
+
+    public Flowable<List<Disease>> retrieveDiseases() {
+        return Flowable.create(emitter -> {
+            DatabaseReference medicinesRef = firebaseDatabase.getReference(Constants.DISEASES_NODE);
+            medicinesRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<Disease> diseaseList = new ArrayList<>();
+                    for (DataSnapshot diseaseSnapshot : snapshot.getChildren()) {
+                        Disease disease = diseaseSnapshot.getValue(Disease.class);
+                        disease.setId(diseaseSnapshot.getKey());
+                        diseaseList.add(disease);
+                    }
+                    emitter.onNext(diseaseList);
                 }
 
                 @Override

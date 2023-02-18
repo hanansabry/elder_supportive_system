@@ -2,6 +2,7 @@ package com.android.patienttrackingsystem.presentation.viewmodels;
 
 import com.android.patienttrackingsystem.data.DatabaseRepository;
 import com.android.patienttrackingsystem.data.models.Conflict;
+import com.android.patienttrackingsystem.data.models.Disease;
 import com.android.patienttrackingsystem.data.models.Medicine;
 
 import java.util.List;
@@ -17,34 +18,34 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MedicinesViewModel extends ViewModel {
+public class DiseasesViewModel extends ViewModel {
 
     private final DatabaseRepository databaseRepository;
     private final CompositeDisposable disposable = new CompositeDisposable();
-    private final MediatorLiveData<List<Medicine>> medicineListLiveData = new MediatorLiveData<>();
-    private final MediatorLiveData<Boolean> addMedicineState = new MediatorLiveData<>();
+    private final MediatorLiveData<List<Disease>> diseaseListLiveData = new MediatorLiveData<>();
+    private final MediatorLiveData<Boolean> addDiseaseState = new MediatorLiveData<>();
     private final MediatorLiveData<Boolean> addConflictState = new MediatorLiveData<>();
     private final MediatorLiveData<String> errorState = new MediatorLiveData<>();
 
     @Inject
-    public MedicinesViewModel(DatabaseRepository databaseRepository) {
+    public DiseasesViewModel(DatabaseRepository databaseRepository) {
         this.databaseRepository = databaseRepository;
     }
 
-    public void retrieveMedicines() {
-        databaseRepository.retrieveMedicines()
+    public void retrieveDiseases() {
+        databaseRepository.retrieveDiseases()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .toObservable()
-                .subscribe(new Observer<List<Medicine>>() {
+                .subscribe(new Observer<List<Disease>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposable.add(d);
                     }
 
                     @Override
-                    public void onNext(List<Medicine> medicineList) {
-                        medicineListLiveData.setValue(medicineList);
+                    public void onNext(List<Disease> diseaseList) {
+                        diseaseListLiveData.setValue(diseaseList);
                     }
 
                     @Override
@@ -54,13 +55,13 @@ public class MedicinesViewModel extends ViewModel {
 
                     @Override
                     public void onComplete() {
-                        medicineListLiveData.setValue(null);
+                        diseaseListLiveData.setValue(null);
                     }
                 });
     }
 
-    public void addNewMedicine(Medicine medicine) {
-        SingleObserver<Boolean> singleObserver = databaseRepository.addNewMedicine(medicine)
+    public void addNewDisease(Disease disease) {
+        SingleObserver<Boolean> singleObserver = databaseRepository.addNewDisease(disease)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new SingleObserver<Boolean>() {
@@ -71,7 +72,7 @@ public class MedicinesViewModel extends ViewModel {
 
                     @Override
                     public void onSuccess(Boolean success) {
-                        addMedicineState.setValue(success);
+                        addDiseaseState.setValue(success);
                     }
 
                     @Override
@@ -81,8 +82,8 @@ public class MedicinesViewModel extends ViewModel {
                 });
     }
 
-    public void addMedicineConflict(Conflict conflict, String medicineId) {
-        SingleObserver<Boolean> singleObserver = databaseRepository.addMedicineConflict(conflict, medicineId)
+    public void addDiseaseConflict(Conflict conflict, String diseaseId) {
+        SingleObserver<Boolean> singleObserver = databaseRepository.addDiseaseConflict(conflict, diseaseId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new SingleObserver<Boolean>() {
@@ -103,12 +104,12 @@ public class MedicinesViewModel extends ViewModel {
                 });
     }
 
-    public MediatorLiveData<List<Medicine>> observeMedicineListLiveData() {
-        return medicineListLiveData;
+    public MediatorLiveData<List<Disease>> observeDiseaseListLiveData() {
+        return diseaseListLiveData;
     }
 
-    public MediatorLiveData<Boolean> observeAddMedicineState() {
-        return addMedicineState;
+    public MediatorLiveData<Boolean> observeAddDiseaseState() {
+        return addDiseaseState;
     }
 
     public MediatorLiveData<Boolean> observeAddConflictState() {

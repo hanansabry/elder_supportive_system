@@ -1,6 +1,7 @@
 package com.android.patienttrackingsystem.data;
 
 import com.android.patienttrackingsystem.data.models.Conflict;
+import com.android.patienttrackingsystem.data.models.Disease;
 import com.android.patienttrackingsystem.data.models.Medicine;
 import com.android.patienttrackingsystem.data.models.User;
 import com.android.patienttrackingsystem.datasource.FirebaseDataSource;
@@ -39,5 +40,17 @@ public class DatabaseRepository {
 
     public Single<Boolean> addMedicineConflict(Conflict conflict, String medicineId) {
         return firebaseDataSource.addMedicineConflict(conflict, medicineId);
+    }
+
+    public Single<Boolean> addNewDisease(Disease disease) {
+        return firebaseDataSource.addNewDisease(disease);
+    }
+
+    public Flowable<List<Disease>> retrieveDiseases() {
+        return firebaseDataSource.retrieveDiseases();
+    }
+
+    public Single<Boolean> addDiseaseConflict(Conflict conflict, String diseaseId) {
+        return firebaseDataSource.addDiseaseConflict(conflict, diseaseId);
     }
 }

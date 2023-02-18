@@ -25,6 +25,18 @@
         app:layout_constraintTop_toTopOf="@id/back_button"
         app:layout_constraintBottom_toBottomOf="@id/back_button"/>
 
+    <Button
+        android:id="@+id/sign_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:text="@string/sign_out"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/back_button" />
+
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profile"

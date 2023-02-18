@@ -19,6 +19,7 @@ import com.android.patienttrackingsystem.data.models.User;
 import com.android.patienttrackingsystem.datasource.SharedPreferencesDataSource;
 import com.android.patienttrackingsystem.di.ViewModelProviderFactory;
 import com.android.patienttrackingsystem.presentation.admin.AdminActivity;
+import com.android.patienttrackingsystem.presentation.user.SignUpActivity;
 import com.android.patienttrackingsystem.presentation.user.UserHomeActivity;
 import com.android.patienttrackingsystem.presentation.viewmodels.AuthenticationViewModel;
 
@@ -49,7 +50,7 @@ public class SignInActivity extends DaggerAppCompatActivity {
         authenticationViewModel.observeUserState().observe(this, user -> {
             if (user != null) {
                 sharedPreferencesDataSource.saveUserId(user.getId());
-                if (user.getRole().equals("admin")) {
+                if (user.getRole() != null && user.getRole().equals("admin")) {
                     sharedPreferencesDataSource.setIsAdmin(true);
                     startAdminFlow();
                 } else {
@@ -75,7 +76,7 @@ public class SignInActivity extends DaggerAppCompatActivity {
 
     @OnClick(R.id.sign_up)
     public void onSignUpClicked() {
-
+        startActivity(new Intent(this, SignUpActivity.class));
     }
 
     @OnClick(R.id.sign_in)

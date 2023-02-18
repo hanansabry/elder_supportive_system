@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
-        <activity android:name=".presentation.user.UserHomeActivity"/>
+        <activity android:name=".presentation.user.SignUpActivity" />
+        <activity android:name=".presentation.user.UserHomeActivity" />
         <activity android:name=".presentation.admin.diseases.DiseaseListActivity" />
         <activity android:name=".presentation.admin.medicines.MedicineListActivity" />
         <activity android:name=".presentation.admin.AdminActivity" />

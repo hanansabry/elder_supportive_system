@@ -6,12 +6,12 @@ public class User {
     private String userName;
     private String email;
     private String password;
-    private long civilId;
+    private String civilId;
     private String phone;
     private String address;
     private String bloodType;
     private String gender;
-    private int age;
+    private String age;
     private String role;
 
     public String getId() {
@@ -46,11 +46,11 @@ public class User {
         this.password = password;
     }
 
-    public long getCivilId() {
+    public String getCivilId() {
         return civilId;
     }
 
-    public void setCivilId(long civilId) {
+    public void setCivilId(String civilId) {
         this.civilId = civilId;
     }
 
@@ -78,20 +78,20 @@ public class User {
         this.bloodType = bloodType;
     }
 
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
     public String getGender() {
         return gender;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getRole() {

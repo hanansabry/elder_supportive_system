@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <EditText
-            android:id="@+id/medicine_name_edit_text"
+            android:id="@+id/disease_name_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorAccent"
@@ -47,7 +47,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/medicine_desc_edit_text"
+            android:id="@+id/disease_desc_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

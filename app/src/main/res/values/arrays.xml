@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="blood_types">
+        <item>Blood Type</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>A+</item>
+        <item>B+</item>
+        <item>AB</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+</resources>

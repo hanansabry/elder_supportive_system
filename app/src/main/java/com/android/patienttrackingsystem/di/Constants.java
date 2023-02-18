@@ -8,4 +8,6 @@ public class Constants {
     public static final String MEDICINES_NODE = "medicines";
     public static final String CONFLICTS = "conflicts";
     public static final String MEDICINE = "medicine";
+    public static final String DISEASES_NODE = "diseases";
+    public static final String DISEASE = "disease";
 }
