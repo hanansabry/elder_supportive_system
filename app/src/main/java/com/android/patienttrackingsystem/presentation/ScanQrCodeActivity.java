@@ -118,7 +118,7 @@ public class ScanQrCodeActivity extends AppCompatActivity {
                             intentData = barcodes.valueAt(0).displayValue;
                             txtBarcodeValue.setText(intentData);
                             cameraSource.release();
-                            Intent intent = new Intent(ScanQrCodeActivity.this, MedicalProfileActivity.class);
+                            Intent intent = new Intent(ScanQrCodeActivity.this, CheckoutMedicalProfileActivity.class);
                             intent.putExtra(Constants.USER_ID, intentData);
                             intent.putExtra(Constants.READ_ONLY, true);
                             startActivity(intent);

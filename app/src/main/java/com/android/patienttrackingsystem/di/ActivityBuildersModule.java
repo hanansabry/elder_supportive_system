@@ -5,6 +5,7 @@ import com.android.patienttrackingsystem.di.modules.AuthenticationViewModelModul
 import com.android.patienttrackingsystem.di.modules.DiseasesViewModelModule;
 import com.android.patienttrackingsystem.di.modules.MedicalProfileViewModelModule;
 import com.android.patienttrackingsystem.di.modules.MedicinesViewModelModule;
+import com.android.patienttrackingsystem.presentation.CheckoutMedicalProfileActivity;
 import com.android.patienttrackingsystem.presentation.SignInActivity;
 import com.android.patienttrackingsystem.presentation.admin.AdminActivity;
 import com.android.patienttrackingsystem.presentation.admin.diseases.DiseaseListActivity;
@@ -39,4 +40,7 @@ public abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector (modules = MedicalProfileViewModelModule.class)
     abstract MedicalProfileActivity contributeMedicalProfileViewModel();
+
+    @ContributesAndroidInjector (modules = MedicalProfileViewModelModule.class)
+    abstract CheckoutMedicalProfileActivity contributeCheckoutMedicalProfileActivity();
 }

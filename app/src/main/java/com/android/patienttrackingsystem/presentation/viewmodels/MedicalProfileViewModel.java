@@ -3,6 +3,7 @@ package com.android.patienttrackingsystem.presentation.viewmodels;
 import com.android.patienttrackingsystem.data.DatabaseRepository;
 import com.android.patienttrackingsystem.data.models.Disease;
 import com.android.patienttrackingsystem.data.models.Medicine;
+import com.android.patienttrackingsystem.data.models.User;
 import com.android.patienttrackingsystem.di.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +28,7 @@ public class MedicalProfileViewModel extends ViewModel {
 
     private final DatabaseRepository databaseRepository;
     private final CompositeDisposable disposable = new CompositeDisposable();
+    private final MediatorLiveData<User> userState = new MediatorLiveData<>();
     private final MediatorLiveData<Boolean> addDiseaseState = new MediatorLiveData<>();
     private final MediatorLiveData<Boolean> addMedicineState = new MediatorLiveData<>();
     private final MediatorLiveData<List<Disease>> allDiseaseListLiveData = new MediatorLiveData<>();
@@ -40,6 +42,24 @@ public class MedicalProfileViewModel extends ViewModel {
     @Inject
     public MedicalProfileViewModel(DatabaseRepository databaseRepository) {
         this.databaseRepository = databaseRepository;
+    }
+
+    public void retrieveUserData(String userId) {
+        FirebaseDatabase.getInstance()
+                .getReference(Constants.USERS_NODE)
+                .child(userId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+                        userState.setValue(user);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        errorState.setValue(error.getMessage());
+                    }
+                });
     }
 
     public void retrieveAllDiseases() {
@@ -193,6 +213,10 @@ public class MedicalProfileViewModel extends ViewModel {
                         errorState.setValue(error.getMessage());
                     }
                 });
+    }
+
+    public MediatorLiveData<User> observeUserState() {
+        return userState;
     }
 
     public MediatorLiveData<Boolean> observeAddDiseaseState() {

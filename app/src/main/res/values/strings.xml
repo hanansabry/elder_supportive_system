@@ -41,4 +41,5 @@
     <string name="register_now">Register Now</string>
     <string name="medical_profile">Medical Profile</string>
     <string name="no_current_diseases">No current diseases</string>
+    <string name="personal_information">Personal Information</string>
 </resources>

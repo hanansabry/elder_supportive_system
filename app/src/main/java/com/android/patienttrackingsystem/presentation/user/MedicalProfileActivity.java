@@ -65,12 +65,7 @@ public class MedicalProfileActivity extends DaggerAppCompatActivity implements M
         setContentView(R.layout.activity_medical_profile);
         ButterKnife.bind(this);
 
-        boolean readOnly = getIntent().getBooleanExtra(Constants.READ_ONLY, false);
-        if (readOnly) {
-            userId = getIntent().getStringExtra(Constants.USER_ID);
-        } else {
-            userId = sharedPreferencesDataSource.getUserId();
-        }
+        userId = sharedPreferencesDataSource.getUserId();
         medicalProfileViewModel = new ViewModelProvider(getViewModelStore(), providerFactory).get(MedicalProfileViewModel.class);
         medicalProfileViewModel.retrieveAllDiseases();
         medicalProfileViewModel.retrieveAllMedicines();
