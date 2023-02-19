@@ -3,13 +3,15 @@ package com.android.patienttrackingsystem.di;
 import com.android.patienttrackingsystem.SplashActivity;
 import com.android.patienttrackingsystem.di.modules.AuthenticationViewModelModule;
 import com.android.patienttrackingsystem.di.modules.DiseasesViewModelModule;
+import com.android.patienttrackingsystem.di.modules.MedicalProfileViewModelModule;
 import com.android.patienttrackingsystem.di.modules.MedicinesViewModelModule;
 import com.android.patienttrackingsystem.presentation.SignInActivity;
 import com.android.patienttrackingsystem.presentation.admin.AdminActivity;
 import com.android.patienttrackingsystem.presentation.admin.diseases.DiseaseListActivity;
 import com.android.patienttrackingsystem.presentation.admin.medicines.MedicineListActivity;
-import com.android.patienttrackingsystem.presentation.user.SignUpActivity;
-import com.android.patienttrackingsystem.presentation.viewmodels.AuthenticationViewModel;
+import com.android.patienttrackingsystem.presentation.SignUpActivity;
+import com.android.patienttrackingsystem.presentation.user.MedicalProfileActivity;
+import com.android.patienttrackingsystem.presentation.viewmodels.MedicalProfileViewModel;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -34,4 +36,7 @@ public abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector (modules = DiseasesViewModelModule.class)
     abstract DiseaseListActivity contributeDiseaseListActivity();
+
+    @ContributesAndroidInjector (modules = MedicalProfileViewModelModule.class)
+    abstract MedicalProfileActivity contributeMedicalProfileViewModel();
 }

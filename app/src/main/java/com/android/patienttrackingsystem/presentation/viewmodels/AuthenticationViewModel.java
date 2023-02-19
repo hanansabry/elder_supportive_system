@@ -1,8 +1,12 @@
 package com.android.patienttrackingsystem.presentation.viewmodels;
 
+import android.graphics.Bitmap;
+
 import com.android.patienttrackingsystem.data.DatabaseRepository;
 import com.android.patienttrackingsystem.data.models.User;
 import com.google.firebase.auth.FirebaseAuth;
+
+import net.glxn.qrgen.android.QRCode;
 
 import javax.inject.Inject;
 
@@ -19,6 +23,7 @@ public class AuthenticationViewModel extends ViewModel {
     private final DatabaseRepository databaseRepository;
     private final CompositeDisposable disposable = new CompositeDisposable();
     private final MediatorLiveData<User> userState = new MediatorLiveData<>();
+    private final MediatorLiveData<Boolean> qrCodeUrlState = new MediatorLiveData<>();
     private final MediatorLiveData<String> errorState = new MediatorLiveData<>();
 
     @Inject
@@ -82,4 +87,33 @@ public class AuthenticationViewModel extends ViewModel {
         return errorState;
     }
 
+    public Bitmap generateQrCode(String id) {
+        return QRCode.from(id).withSize(1080, 1080).bitmap();
+    }
+
+    public void saveQrCodeToFirebaseStorage(String userId, Bitmap qrCode) {
+        SingleObserver<Boolean> singleObserver = databaseRepository.saveQrCode(userId, qrCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new SingleObserver<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(Boolean success) {
+                        qrCodeUrlState.setValue(success);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        errorState.setValue(e.getMessage());
+                    }
+                });
+    }
+
+    public MediatorLiveData<Boolean> observeSavingQrCodeUrlState() {
+        return qrCodeUrlState;
+    }
 }

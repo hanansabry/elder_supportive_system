@@ -10,4 +10,9 @@ public class Constants {
     public static final String MEDICINE = "medicine";
     public static final String DISEASES_NODE = "diseases";
     public static final String DISEASE = "disease";
+    public static final String QR_CODE_FOLDER = "qr_codes";
+    public static final String IMAGE_FILE_TYPE = ".jpg";
+    public static final String READ_ONLY = "read_only";
+    public static final String STATUES = "statues";
+    public static final String QR_CODE = "qr_code";
 }

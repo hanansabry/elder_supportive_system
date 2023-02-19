@@ -8,8 +8,7 @@ import android.os.Handler;
 import com.android.patienttrackingsystem.di.Constants;
 import com.android.patienttrackingsystem.presentation.SignInActivity;
 import com.android.patienttrackingsystem.presentation.admin.AdminActivity;
-import com.android.patienttrackingsystem.presentation.user.UserHomeActivity;
-import com.google.firebase.auth.FirebaseAuth;
+import com.android.patienttrackingsystem.presentation.user.MedicalProfileActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (isAdmin) {
                     startActivity(new Intent(this, AdminActivity.class));
                 } else {
-                    startActivity(new Intent(this, UserHomeActivity.class));
+                    startActivity(new Intent(this, MedicalProfileActivity.class));
                 }
             }
         }, SPLASH_TIME_OUT);

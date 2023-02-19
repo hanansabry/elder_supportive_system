@@ -39,4 +39,6 @@
     <string name="age">Age</string>
     <string name="generate_qr_code">Generate QR Code</string>
     <string name="register_now">Register Now</string>
+    <string name="medical_profile">Medical Profile</string>
+    <string name="no_current_diseases">No current diseases</string>
 </resources>

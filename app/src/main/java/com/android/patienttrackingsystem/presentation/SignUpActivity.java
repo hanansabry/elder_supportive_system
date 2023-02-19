@@ -1,8 +1,9 @@
-package com.android.patienttrackingsystem.presentation.user;
+package com.android.patienttrackingsystem.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -10,6 +11,7 @@ import com.android.patienttrackingsystem.R;
 import com.android.patienttrackingsystem.data.models.User;
 import com.android.patienttrackingsystem.datasource.SharedPreferencesDataSource;
 import com.android.patienttrackingsystem.di.ViewModelProviderFactory;
+import com.android.patienttrackingsystem.presentation.user.MedicalProfileActivity;
 import com.android.patienttrackingsystem.presentation.viewmodels.AuthenticationViewModel;
 
 import javax.inject.Inject;
@@ -40,6 +42,8 @@ public class SignUpActivity extends DaggerAppCompatActivity {
     Spinner bloodTypeSpinner;
     @BindView(R.id.gender_spinner)
     Spinner genderSpinner;
+    @BindView(R.id.generate_qr_code)
+    ImageView qrCode;
 
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -57,7 +61,9 @@ public class SignUpActivity extends DaggerAppCompatActivity {
         authenticationViewModel.observeUserState().observe(this, user -> {
             if (user != null) {
                 sharedPreferencesDataSource.saveUserId(user.getId());
-                startActivity(new Intent(this, UserHomeActivity.class));
+                //generate qr code and save it to user data
+                generateQrCode(user.getId());
+                startActivity(new Intent(this, MedicalProfileActivity.class));
                 finish();
             } else {
                 Toast.makeText(this, "Can't create new account, please try again later", Toast.LENGTH_SHORT).show();
@@ -67,6 +73,12 @@ public class SignUpActivity extends DaggerAppCompatActivity {
         authenticationViewModel.observeErrorState().observe(this, error -> {
             Toast.makeText(this, "Can't create new account, please try again later", Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void generateQrCode(String id) {
+        qrCode.setImageBitmap(authenticationViewModel.generateQrCode(id));
+        //save image to firebase storage
+        authenticationViewModel.saveQrCodeToFirebaseStorage(id, authenticationViewModel.generateQrCode(id));
     }
 
     @OnClick(R.id.sign_up)

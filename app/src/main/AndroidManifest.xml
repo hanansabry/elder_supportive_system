@@ -14,8 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
-        <activity android:name=".presentation.user.SignUpActivity" />
-        <activity android:name=".presentation.user.UserHomeActivity" />
+        <activity android:name=".presentation.user.QrCodeActivity" />
+        <activity android:name=".presentation.ScanQrCodeActivity" />
+        <activity android:name=".presentation.SignUpActivity" />
+        <activity android:name=".presentation.user.MedicalProfileActivity" />
         <activity android:name=".presentation.admin.diseases.DiseaseListActivity" />
         <activity android:name=".presentation.admin.medicines.MedicineListActivity" />
         <activity android:name=".presentation.admin.AdminActivity" />
@@ -39,6 +41,30 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

@@ -1,5 +1,7 @@
 package com.android.patienttrackingsystem.data;
 
+import android.graphics.Bitmap;
+
 import com.android.patienttrackingsystem.data.models.Conflict;
 import com.android.patienttrackingsystem.data.models.Disease;
 import com.android.patienttrackingsystem.data.models.Medicine;
@@ -10,6 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
@@ -52,5 +55,9 @@ public class DatabaseRepository {
 
     public Single<Boolean> addDiseaseConflict(Conflict conflict, String diseaseId) {
         return firebaseDataSource.addDiseaseConflict(conflict, diseaseId);
+    }
+
+    public Single<Boolean> saveQrCode(String userId, Bitmap qrCode) {
+        return firebaseDataSource.saveQrCode(userId, qrCode);
     }
 }

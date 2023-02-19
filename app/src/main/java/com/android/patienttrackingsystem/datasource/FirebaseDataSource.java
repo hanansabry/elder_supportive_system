@@ -1,12 +1,15 @@
 package com.android.patienttrackingsystem.datasource;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 import com.android.patienttrackingsystem.data.models.Conflict;
 import com.android.patienttrackingsystem.data.models.Disease;
 import com.android.patienttrackingsystem.data.models.Medicine;
 import com.android.patienttrackingsystem.data.models.User;
 import com.android.patienttrackingsystem.di.Constants;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,7 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,18 +121,18 @@ public class FirebaseDataSource {
 
     public Single<Boolean> addMedicineConflict(Conflict conflict, String medicineId) {
         return Single.create(emitter -> {
-           firebaseDatabase.getReference(Constants.MEDICINES_NODE)
-                   .child(medicineId)
-                   .child(Constants.CONFLICTS)
-                   .push()
-                   .setValue(conflict)
-                   .addOnCompleteListener(task -> {
-                       if (task.isSuccessful()) {
-                           emitter.onSuccess(true);
-                       } else {
-                           emitter.onSuccess(false);
-                       }
-                   });
+            firebaseDatabase.getReference(Constants.MEDICINES_NODE)
+                    .child(medicineId)
+                    .child(Constants.CONFLICTS)
+                    .push()
+                    .setValue(conflict)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            emitter.onSuccess(true);
+                        } else {
+                            emitter.onSuccess(false);
+                        }
+                    });
         });
     }
 
@@ -206,5 +211,40 @@ public class FirebaseDataSource {
                 }
             });
         }, BackpressureStrategy.BUFFER);
+    }
+
+    public Single<Boolean> saveQrCode(String userId, Bitmap qrCode) {
+        return Single.create(emitter -> {
+            // Create a reference to "qr_code.jpg"
+            StorageReference reference = storageReference.child(Constants.QR_CODE_FOLDER + "/" + userId + "/qr_code_" + System.currentTimeMillis() + Constants.IMAGE_FILE_TYPE);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            qrCode.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = reference.putBytes(data);
+            uploadTask.continueWithTask(task -> {
+                if (!task.isSuccessful()) {
+                    emitter.onError(task.getException());
+                } else {
+                    // Continue with the fileTask to get the download URL
+                    reference.getDownloadUrl().addOnCompleteListener(task1 -> {
+                        String downloadUrl = task1.getResult().toString();
+                        firebaseDatabase.getReference(Constants.USERS_NODE)
+                                .child(userId)
+                                .child("qr_code")
+                                .setValue(downloadUrl)
+                                .addOnCompleteListener(saveTask -> {
+                                    if (saveTask.isSuccessful()) {
+                                        emitter.onSuccess(true);
+                                    } else {
+                                        emitter.onSuccess(false);
+                                    }
+                                });
+                    });
+                }
+                return reference.getDownloadUrl();
+            });
+
+        });
     }
 }

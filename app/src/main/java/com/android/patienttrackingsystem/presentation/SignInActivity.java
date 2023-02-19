@@ -1,29 +1,25 @@
 package com.android.patienttrackingsystem.presentation;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.patienttrackingsystem.R;
+import com.android.patienttrackingsystem.datasource.SharedPreferencesDataSource;
+import com.android.patienttrackingsystem.di.ViewModelProviderFactory;
+import com.android.patienttrackingsystem.presentation.admin.AdminActivity;
+import com.android.patienttrackingsystem.presentation.user.MedicalProfileActivity;
+import com.android.patienttrackingsystem.presentation.viewmodels.AuthenticationViewModel;
+
+import javax.inject.Inject;
+
 import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.android.patienttrackingsystem.R;
-import com.android.patienttrackingsystem.data.models.User;
-import com.android.patienttrackingsystem.datasource.SharedPreferencesDataSource;
-import com.android.patienttrackingsystem.di.ViewModelProviderFactory;
-import com.android.patienttrackingsystem.presentation.admin.AdminActivity;
-import com.android.patienttrackingsystem.presentation.user.SignUpActivity;
-import com.android.patienttrackingsystem.presentation.user.UserHomeActivity;
-import com.android.patienttrackingsystem.presentation.viewmodels.AuthenticationViewModel;
-
-import javax.inject.Inject;
 
 public class SignInActivity extends DaggerAppCompatActivity {
 
@@ -67,7 +63,7 @@ public class SignInActivity extends DaggerAppCompatActivity {
     }
 
     private void startUserFlow() {
-        startActivity(new Intent(this, UserHomeActivity.class));
+        startActivity(new Intent(this, MedicalProfileActivity.class));
     }
 
     private void startAdminFlow() {
@@ -105,7 +101,7 @@ public class SignInActivity extends DaggerAppCompatActivity {
 
     @OnClick(R.id.scan_qr_code)
     public void onScanQrCodeClicked() {
-
+        startActivity(new Intent(this, ScanQrCodeActivity.class));
     }
 
     @OnClick(R.id.back_button)
