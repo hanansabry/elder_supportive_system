@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Patient Tracking System</string>
+    <string name="app_name">Elderly Supportive System</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="sign_in">Sign In</string>

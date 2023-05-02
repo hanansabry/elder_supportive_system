@@ -13,6 +13,7 @@
         android:layout_margin="32dp"
         android:background="@null"
         android:src="@drawable/ic_back"
+        app:tint="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -107,6 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icons8_medicines_100"
+                app:tint="@color/white"
                 app:layout_constraintEnd_toEndOf="@id/medicines_title"
                 app:layout_constraintStart_toStartOf="@id/medicines_title"
                 app:layout_constraintTop_toBottomOf="@id/medicines_title" />
@@ -170,6 +172,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icons8_diseases_100"
+                app:tint="@color/white"
                 app:layout_constraintEnd_toEndOf="@id/diseases_title"
                 app:layout_constraintStart_toStartOf="@id/diseases_title"
                 app:layout_constraintTop_toBottomOf="@id/diseases_title" />

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "705871607178",
-    "project_id": "patient-tracking-system-abb99",
-    "storage_bucket": "patient-tracking-system-abb99.appspot.com"
+    "project_number": "267369846239",
+    "project_id": "elder-supportive-system",
+    "storage_bucket": "elder-supportive-system.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:705871607178:android:04ab0766f2c2ad15854473",
+        "mobilesdk_app_id": "1:267369846239:android:6ae48e8ad0dfd7c522206a",
         "android_client_info": {
-          "package_name": "com.android.patienttrackingsystem"
+          "package_name": "com.android.elderlysupportivesystem"
         }
       },
       "oauth_client": [
         {
-          "client_id": "705871607178-2mnc53hltk3a6pm781jprf2iuqjjq37f.apps.googleusercontent.com",
+          "client_id": "267369846239-s93e8dmncseubpf4797kmhtgpenrd6p1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAt3uHsj1NY2xDdRcsDvbxK8kistEpDvMo"
+          "current_key": "AIzaSyC56QkLDxYmKVRRofPUbz0nk99jQ3w8ZrA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "705871607178-2mnc53hltk3a6pm781jprf2iuqjjq37f.apps.googleusercontent.com",
+              "client_id": "267369846239-s93e8dmncseubpf4797kmhtgpenrd6p1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
