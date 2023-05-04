@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_gray_2"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/relative_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/profile_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/relative_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintStart_toEndOf="@id/relative_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Relative Name" />
+
+        <TextView
+            android:id="@+id/relative_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/dark_gray"
+            app:layout_constraintTop_toBottomOf="@id/relative_name"
+            app:layout_constraintStart_toStartOf="@id/relative_name"
+            tools:text="01014736447"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

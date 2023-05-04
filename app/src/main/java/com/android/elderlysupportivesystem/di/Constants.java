@@ -15,4 +15,5 @@ public class Constants {
     public static final String READ_ONLY = "read_only";
     public static final String STATUES = "statues";
     public static final String QR_CODE = "qr_code";
+    public static final String RELATIVES_NODE = "relatives";
 }

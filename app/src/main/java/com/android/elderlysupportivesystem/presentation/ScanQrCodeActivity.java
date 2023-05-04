@@ -1,14 +1,17 @@
 package com.android.elderlysupportivesystem.presentation;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -130,4 +133,18 @@ public class ScanQrCodeActivity extends AppCompatActivity {
         });
 
     }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CAMERA_PERMISSION && grantResults.length > 0) {
+            try {
+                cameraSource.start(surfaceView.getHolder());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

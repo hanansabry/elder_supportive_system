@@ -1,8 +1,13 @@
 package com.android.elderlysupportivesystem.presentation.viewmodels;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+
 import com.android.elderlysupportivesystem.data.DatabaseRepository;
 import com.android.elderlysupportivesystem.data.models.Disease;
 import com.android.elderlysupportivesystem.data.models.Medicine;
+import com.android.elderlysupportivesystem.data.models.Relative;
 import com.android.elderlysupportivesystem.data.models.User;
 import com.android.elderlysupportivesystem.di.Constants;
 import com.google.firebase.database.DataSnapshot;
@@ -10,8 +15,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -35,7 +43,9 @@ public class MedicalProfileViewModel extends ViewModel {
     private final MediatorLiveData<List<Medicine>> allMedicinesListLiveData = new MediatorLiveData<>();
     private final MediatorLiveData<HashMap<Disease, String>> userDiseaseListLiveData = new MediatorLiveData<>();
     private final MediatorLiveData<HashMap<Medicine, String>> userMedicineListLiveData = new MediatorLiveData<>();
+    private final MediatorLiveData<List<Relative>> userRelativeListLiveData = new MediatorLiveData<>();
     private final MediatorLiveData<String> qrCodeState = new MediatorLiveData<>();
+    private final MediatorLiveData<String> userLocationAddressState = new MediatorLiveData<>();
     private final MediatorLiveData<String> errorState = new MediatorLiveData<>();
 
 
@@ -172,6 +182,14 @@ public class MedicalProfileViewModel extends ViewModel {
                 .updateChildren(updates);
     }
 
+    public void addUserRelative(Relative relative, String userId) {
+        FirebaseDatabase.getInstance().getReference(Constants.USERS_NODE)
+                .child(userId)
+                .child(Constants.RELATIVES_NODE)
+                .push()
+                .setValue(relative);
+    }
+
     public void retrieveUserMedicines(String userId) {
         FirebaseDatabase.getInstance()
                 .getReference(Constants.USERS_NODE)
@@ -187,6 +205,30 @@ public class MedicalProfileViewModel extends ViewModel {
                             userMedicinesMap.put(medicine, status);
                         }
                         userMedicineListLiveData.setValue(userMedicinesMap);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        errorState.setValue(error.getMessage());
+                    }
+                });
+    }
+
+    public void retrieveUserRelatives(String userId) {
+        FirebaseDatabase.getInstance()
+                .getReference(Constants.USERS_NODE)
+                .child(userId)
+                .child(Constants.RELATIVES_NODE)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        List<Relative> relativeList = new ArrayList<>();
+                        for (DataSnapshot relativeSnapshot : snapshot.getChildren()) {
+                            Relative relative = relativeSnapshot.getValue(Relative.class);
+                            relative.setId(relativeSnapshot.getKey());
+                            relativeList.add(relative);
+                        }
+                        userRelativeListLiveData.setValue(relativeList);
                     }
 
                     @Override
@@ -213,6 +255,30 @@ public class MedicalProfileViewModel extends ViewModel {
                         errorState.setValue(error.getMessage());
                     }
                 });
+    }
+
+    public void getUserAddress(Context context, double latitude, double longitude) {
+        Thread thread = new Thread(() -> {
+            Geocoder geocoder;
+            List<Address> addresses;
+            geocoder = new Geocoder(context, Locale.getDefault());
+
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                String area = addresses.get(0).getSubAdminArea();
+                String city = addresses.get(0).getLocality();
+                String state = addresses.get(0).getAdminArea();
+                String country = addresses.get(0).getCountryName();
+                String postalCode = addresses.get(0).getPostalCode();
+                String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+                userLocationAddressState.postValue(address);
+            } catch (IOException e) {
+                e.printStackTrace();
+                errorState.setValue(e.getMessage());
+            }
+        });
+        thread.start();
     }
 
     public MediatorLiveData<User> observeUserState() {
@@ -243,11 +309,19 @@ public class MedicalProfileViewModel extends ViewModel {
         return userMedicineListLiveData;
     }
 
+    public MediatorLiveData<List<Relative>> observeUserRelativesListLiveData() {
+        return userRelativeListLiveData;
+    }
+
     public MediatorLiveData<String> observeQrCodeState() {
         return qrCodeState;
     }
 
-    public MediatorLiveData<String> getErrorState() {
+    public MediatorLiveData<String> observeUserLocationAddressState() {
+        return userLocationAddressState;
+    }
+
+    public MediatorLiveData<String> observeErrorState() {
         return errorState;
     }
 }

@@ -42,4 +42,7 @@
     <string name="medical_profile">Medical Profile</string>
     <string name="no_current_diseases">No current diseases</string>
     <string name="personal_information">Personal Information</string>
+    <string name="relatives">Relatives</string>
+    <string name="add_relative">Add Relative</string>
+    <string name="no_current_relatives">No current relatives</string>
 </resources>
